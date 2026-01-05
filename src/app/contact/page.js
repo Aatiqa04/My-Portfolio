@@ -34,18 +34,21 @@ export default function Contact() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify({
           access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
           name: formData.name,
           email: formData.email,
-          subject: formData.subject,
+          replyto: formData.email,
+          subject: `Portfolio Contact: ${formData.subject}`,
           message: formData.message,
           from_name: 'Portfolio Contact Form',
         }),
       });
 
       const result = await response.json();
+      console.log('Web3Forms Response:', result);
 
       if (result.success) {
         setStatus({
@@ -54,7 +57,8 @@ export default function Contact() {
         });
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
-        throw new Error('Failed to send');
+        console.error('Web3Forms Error:', result);
+        throw new Error(result.message || 'Failed to send');
       }
     } catch (error) {
       console.error('Form Error:', error);
