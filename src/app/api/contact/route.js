@@ -2,24 +2,34 @@ export async function POST(request) {
   try {
     const body = await request.json();
 
+    const accessKey = process.env.WEB3FORMS_KEY;
+
+    if (!accessKey) {
+      console.error('WEB3FORMS_KEY environment variable is not set');
+      return Response.json({ success: false, message: 'Server configuration error' }, { status: 500 });
+    }
+
+    const formData = new FormData();
+    formData.append('access_key', accessKey);
+    formData.append('name', body.name);
+    formData.append('email', body.email);
+    formData.append('subject', `Portfolio Contact: ${body.subject}`);
+    formData.append('message', body.message);
+
     const response = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({
-        access_key: process.env.WEB3FORMS_KEY,
-        name: body.name,
-        email: body.email,
-        replyto: body.email,
-        subject: `Portfolio Contact: ${body.subject}`,
-        message: body.message,
-        from_name: 'Portfolio Contact Form',
-      }),
+      body: formData,
     });
 
-    const result = await response.json();
+    const responseText = await response.text();
+
+    let result;
+    try {
+      result = JSON.parse(responseText);
+    } catch {
+      console.error('Web3Forms returned non-JSON:', responseText.substring(0, 200));
+      return Response.json({ success: false, message: 'Email service error' }, { status: 500 });
+    }
 
     if (result.success) {
       return Response.json({ success: true });
