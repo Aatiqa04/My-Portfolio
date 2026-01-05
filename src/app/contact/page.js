@@ -52,6 +52,11 @@ export default function Contact() {
           message: 'Thank you for your message! I\'ll get back to you soon.',
         });
         setFormData({ name: '', email: '', subject: '', message: '' });
+
+        // Auto-hide success message after 5 seconds
+        setTimeout(() => {
+          setStatus({ type: '', message: '' });
+        }, 5000);
       } else {
         throw new Error(result.error || 'Failed to send');
       }
