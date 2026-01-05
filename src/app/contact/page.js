@@ -29,29 +29,31 @@ export default function Contact() {
     setStatus({ type: '', message: '' });
 
     try {
-      // Send email using Web3Forms (client-side)
-      const formDataToSend = new FormData();
-      formDataToSend.append('access_key', '1d8dbf16-e645-45de-9b3e-32dcad90c35d');
-      formDataToSend.append('name', formData.name);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('subject', `Portfolio Contact: ${formData.subject}`);
-      formDataToSend.append('message', formData.message);
-
-      const response = await fetch('https://api.web3forms.com/submit', {
+      // Send email using Formspree (client-side)
+      const response = await fetch('https://formspree.io/f/xzdzooqe', {
         method: 'POST',
-        body: formDataToSend,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
       });
 
       const result = await response.json();
 
-      if (result.success) {
+      if (response.ok) {
         setStatus({
           type: 'success',
           message: 'Thank you for your message! I\'ll get back to you soon.',
         });
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
-        throw new Error(result.message || 'Failed to send');
+        throw new Error(result.error || 'Failed to send');
       }
     } catch (error) {
       console.error('Form Error:', error);
