@@ -28,17 +28,43 @@ export default function Contact() {
     setIsSubmitting(true);
     setStatus({ type: '', message: '' });
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      // Send email using Web3Forms
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          from_name: 'Portfolio Contact Form',
+        }),
+      });
 
-    // For now, we'll just show a success message
-    // In production, you would send this to your backend or email service
-    setStatus({
-      type: 'success',
-      message: 'Thank you for your message! I\'ll get back to you soon.',
-    });
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    setIsSubmitting(false);
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus({
+          type: 'success',
+          message: 'Thank you for your message! I\'ll get back to you soon.',
+        });
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        throw new Error('Failed to send');
+      }
+    } catch (error) {
+      console.error('Form Error:', error);
+      setStatus({
+        type: 'error',
+        message: 'Failed to send message. Please try again or email me directly.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
