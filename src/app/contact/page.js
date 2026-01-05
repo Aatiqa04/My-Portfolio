@@ -29,26 +29,21 @@ export default function Contact() {
     setStatus({ type: '', message: '' });
 
     try {
-      // Send email using Web3Forms
-      const response = await fetch('https://api.web3forms.com/submit', {
+      // Send email via API route
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
         },
         body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
           name: formData.name,
           email: formData.email,
-          replyto: formData.email,
-          subject: `Portfolio Contact: ${formData.subject}`,
+          subject: formData.subject,
           message: formData.message,
-          from_name: 'Portfolio Contact Form',
         }),
       });
 
       const result = await response.json();
-      console.log('Web3Forms Response:', result);
 
       if (result.success) {
         setStatus({
@@ -57,7 +52,6 @@ export default function Contact() {
         });
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
-        console.error('Web3Forms Error:', result);
         throw new Error(result.message || 'Failed to send');
       }
     } catch (error) {
