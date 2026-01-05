@@ -29,18 +29,17 @@ export default function Contact() {
     setStatus({ type: '', message: '' });
 
     try {
-      // Send email via API route
-      const response = await fetch('/api/contact', {
+      // Send email using Web3Forms (client-side)
+      const formDataToSend = new FormData();
+      formDataToSend.append('access_key', '1d8dbf16-e645-45de-9b3e-32dcad90c35d');
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('subject', `Portfolio Contact: ${formData.subject}`);
+      formDataToSend.append('message', formData.message);
+
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        }),
+        body: formDataToSend,
       });
 
       const result = await response.json();
