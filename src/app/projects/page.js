@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { FaGithub, FaExternalLinkAlt, FaStar, FaCodeBranch } from 'react-icons/fa';
 import { Search, Filter, Loader2 } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
+import FeaturedProjects from '@/components/FeaturedProjects';
 
 // Language colors mapping
 const languageColors = {
@@ -110,11 +111,14 @@ export default function Projects() {
               <span className="gradient-text">My Projects</span>
             </h1>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              Explore my GitHub repositories. These projects showcase my skills in various technologies
+              Explore my work. These projects showcase my skills in various technologies
               and my passion for building meaningful applications.
             </p>
           </div>
         </ScrollReveal>
+
+        {/* Featured (curated) projects */}
+        <FeaturedProjects />
 
         {/* Search and Filter */}
         <ScrollReveal delay={100}>

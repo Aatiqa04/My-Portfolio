@@ -32,20 +32,11 @@ export const metadata = {
     title: 'Aatiqa Hussain | Full Stack Developer',
     description: 'Passionate MERN Stack Developer skilled in building full-stack web applications.',
     siteName: 'Aatiqa Hussain Portfolio',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Aatiqa Hussain - Full Stack Developer',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Aatiqa Hussain | Full Stack Developer',
     description: 'Passionate MERN Stack Developer skilled in building full-stack web applications.',
-    images: ['/og-image.png'],
   },
   robots: {
     index: true,

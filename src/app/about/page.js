@@ -35,21 +35,21 @@ export default function AboutPage() {
     {
       year: 'Sep 2025 - Present',
       title: 'Associate Software Engineer (Full Stack)',
-      description: 'Working on various web development projects using MERN stack, Next.js, and modern technologies. Building scalable applications and collaborating with cross-functional teams.',
+      description: 'Working on web development projects using MERN stack, Next.js, and modern technologies. Building scalable applications and collaborating with cross-functional teams.',
       type: 'work',
       current: true,
-    },
-    {
-      year: '2023',
-      title: 'Started Professional Journey',
-      description: 'Began building real-world applications and contributing to open-source projects.',
-      type: 'work',
     },
     {
       year: '2025',
       title: 'Graduated from FAST NUCES',
       description: 'Completed Bachelor\'s degree in Computer Science from FAST National University, Lahore.',
       type: 'education',
+    },
+    {
+      year: '2023 - 2025',
+      title: 'Freelance & Personal Projects',
+      description: 'Built real-world applications alongside university coursework — gaining hands-on experience with full-stack development before going full-time.',
+      type: 'work',
     },
     {
       year: '2021',
@@ -128,11 +128,19 @@ export default function AboutPage() {
                   efficient, and maintainable code while continuously learning and adapting to new technologies.
                 </p>
 
-                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                  <Link href="/contact" className="btn-primary">
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+                  <Link href="/contact" className="btn-primary whitespace-nowrap">
                     Get In Touch
                   </Link>
-                  <Link href="/projects" className="btn-outline">
+                  <a
+                    href="/Aatiqa_Hussain_CV.pdf"
+                    download="Aatiqa_Hussain_CV.pdf"
+                    className="btn-outline inline-flex items-center gap-2 whitespace-nowrap"
+                  >
+                    <Download size={18} />
+                    Download CV
+                  </a>
+                  <Link href="/projects" className="btn-outline whitespace-nowrap">
                     View Projects
                   </Link>
                 </div>

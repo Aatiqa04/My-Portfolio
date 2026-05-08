@@ -17,6 +17,7 @@ export default function Contact() {
   });
   const [status, setStatus] = useState({ type: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [phoneRevealed, setPhoneRevealed] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -83,6 +84,7 @@ export default function Contact() {
       label: 'Phone',
       value: '+92-333-1438458',
       href: 'tel:+923331438458',
+      revealOnClick: true,
     },
     {
       icon: FaMapMarkerAlt,
@@ -157,26 +159,37 @@ export default function Contact() {
 
               {/* Contact Details */}
               <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-6 space-y-4">
-                {contactInfo.map(({ icon: Icon, label, value, href }) => (
-                  <div key={label} className="flex items-center gap-4 group">
-                    <div className="p-3 bg-purple-500/10 rounded-lg group-hover:bg-purple-500/20 transition-colors">
-                      <Icon className="text-purple-400" size={20} />
+                {contactInfo.map(({ icon: Icon, label, value, href, revealOnClick }) => {
+                  const hidden = revealOnClick && !phoneRevealed;
+                  return (
+                    <div key={label} className="flex items-center gap-4 group">
+                      <div className="p-3 bg-purple-500/10 rounded-lg group-hover:bg-purple-500/20 transition-colors">
+                        <Icon className="text-purple-400" size={20} />
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-500">{label}</p>
+                        {hidden ? (
+                          <button
+                            type="button"
+                            onClick={() => setPhoneRevealed(true)}
+                            className="text-purple-400 hover:text-purple-300 transition-colors text-sm underline-offset-2 hover:underline"
+                          >
+                            Click to reveal
+                          </button>
+                        ) : href ? (
+                          <a
+                            href={href}
+                            className="text-white hover:text-purple-400 transition-colors"
+                          >
+                            {value}
+                          </a>
+                        ) : (
+                          <p className="text-white">{value}</p>
+                        )}
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm text-gray-500">{label}</p>
-                      {href ? (
-                        <a
-                          href={href}
-                          className="text-white hover:text-purple-400 transition-colors"
-                        >
-                          {value}
-                        </a>
-                      ) : (
-                        <p className="text-white">{value}</p>
-                      )}
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Social Links */}

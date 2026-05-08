@@ -86,14 +86,22 @@ export default function Home() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-4 animate-fade-in delay-600">
-              <Link href="/projects" className="btn-primary flex items-center gap-2">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-4 animate-fade-in delay-600">
+              <Link href="/projects" className="btn-primary inline-flex items-center gap-2 whitespace-nowrap">
                 View My Work
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Link>
-              <Link href="/contact" className="btn-outline flex items-center gap-2">
+              <a
+                href="/Aatiqa_Hussain_CV.pdf"
+                download="Aatiqa_Hussain_CV.pdf"
+                className="btn-outline inline-flex items-center gap-2 whitespace-nowrap"
+              >
+                <FaDownload size={16} />
+                Download CV
+              </a>
+              <Link href="/contact" className="btn-outline inline-flex items-center gap-2 whitespace-nowrap">
                 <MdEmail size={18} />
                 Contact Me
               </Link>
@@ -121,11 +129,9 @@ export default function Home() {
               </div>
 
               {/* Floating Elements */}
-              <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg animate-bounce-subtle">
-                <span className="text-2xl font-bold text-white">2+</span>
-              </div>
-              <div className="absolute -top-4 -right-4 w-20 h-20 flex items-end justify-center pb-1">
-                <span className="text-xs text-white/80">Years Exp</span>
+              <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-purple-500 to-blue-500 rounded-2xl flex flex-col items-center justify-center shadow-lg animate-bounce-subtle">
+                <span className="text-2xl font-bold text-white leading-none">1+</span>
+                <span className="text-[10px] text-white/90 mt-1">Yr Exp</span>
               </div>
             </div>
           </div>
@@ -152,7 +158,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { number: '2+', label: 'Years Experience' },
+              { number: '1+', label: 'Year Experience' },
               { number: '20+', label: 'Projects Completed' },
               { number: '15+', label: 'Technologies' },
               { number: '100%', label: 'Dedication' },
